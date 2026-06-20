@@ -19,6 +19,16 @@ module Enumerable
 
     res
   end
+
+  def my_any?
+    if block_given?
+      my_each { |x| return true if yield(x) }
+    else
+      my_each { |x| return true if x }
+    end
+
+    false
+  end
 class Array
   def my_each
     return to_enum(:my_each) unless block_given?
