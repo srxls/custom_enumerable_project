@@ -29,6 +29,16 @@ module Enumerable
 
     false
   end
+
+  def my_none?
+    if block_given?
+      my_each { |x| return false if yield(x) }
+    else 
+      my_each { |x| return false if x }
+    end
+
+    true
+  end
 class Array
   def my_each
     return to_enum(:my_each) unless block_given?
