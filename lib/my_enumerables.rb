@@ -62,6 +62,17 @@ module Enumerable
 
     res
   end
+
+  def my_inject(*args)
+    arr   = to_a
+    initial = args[0] if args.length >= 1 && !args[0].is_a?(Symbol)
+    sym     = args.find { |a| a.is_a?(Symbol) }
+    res     = initial || arr.shift
+    arr.my_each { |x| res = block_given? ? yield(res, x) : res.send(sym, x)}
+    res
+  end
+end
+
 class Array
   def my_each
     return to_enum(:my_each) unless block_given?
