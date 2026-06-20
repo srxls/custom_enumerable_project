@@ -1,11 +1,15 @@
 module Enumerable
-  # Your code goes here
-end
+  def my_each_with_index
+    return to_enum(:my_each_with_index) unless block_given?
 
-# You will first have to define my_each
-# on the Array class. Methods defined in
-# your enumerable module will have access
-# to this method
+    i = 0
+    while i < self.size
+      yield(self[i], i)
+      i += 1
+    end
+
+    self
+  end
 class Array
   def my_each
     return to_enum(:my_each) unless block_given?
