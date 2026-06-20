@@ -53,6 +53,15 @@ module Enumerable
 
     res
   end
+
+  def my_map
+    return to_enum(:my_map) unless block_given?
+
+    res = []
+    my_each { |x| res << yield(x) }
+
+    res
+  end
 class Array
   def my_each
     return to_enum(:my_each) unless block_given?
