@@ -39,6 +39,20 @@ module Enumerable
 
     true
   end
+
+  def my_count(*arg)
+    res = 0
+
+    if block_given?
+      my_each { |x| res += 1 if yield(x) }
+    elsif !arg.empty?
+      my_each { |x| res += 1 if x == arg[0] }
+    else
+      my_each { res += 1 }
+    end
+
+    res
+  end
 class Array
   def my_each
     return to_enum(:my_each) unless block_given?
